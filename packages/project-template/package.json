@@ -16,6 +16,10 @@
   "scripts": {
     "dev": "pnpm run build:ci -- --sourcemap --watch src",
     "build:ci": "rimraf dist && tsup-node src/index.ts --format esm,cjs --no-splitting",
-    "build": "pnpm run build:ci -- --dts --sourcemap"
+    "build": "pnpm run build:ci -- --dts --sourcemap",
+    "test": "esmo tests/index.ts"
+  },
+  "devDependencies": {
+    "uvu": "^0.5.1"
   }
 }
