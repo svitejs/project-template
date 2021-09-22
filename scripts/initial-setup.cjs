@@ -41,6 +41,7 @@ async function main() {
 	console.log(`first install: updating template to match repo "${githubProject}"`);
 	await fs.unlink('README.md');
 	await fs.rename('README.tpl.md', 'README.md');
+	await fs.rename('.github/workflows.tpl', '.github/workflows');
 	await Promise.all(
 		[
 			'.changeset/config.json',
