@@ -47,6 +47,7 @@ async function main() {
 		'.github/ISSUE_TEMPLATE/feature_request.yml',
 		'.github/ISSUE_TEMPLATE/config.yml',
 		'.github/workflows/release.yml',
+		'packages/playground/README.md',
 		'packages/project-template/package.json',
 		'packages/project-template/LICENSE',
 		'package.json',
