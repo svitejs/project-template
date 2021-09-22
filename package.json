@@ -9,7 +9,8 @@
     "format:fix": "pnpm run format -- --write",
     "fixup": "run-s lint:fix format:fix",
     "release": "pnpm run build && pnpx --no changeset publish",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "node scripts/initial-setup.cjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.17.0",
