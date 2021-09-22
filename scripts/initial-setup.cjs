@@ -1,6 +1,6 @@
 // TODO
 // update initial package:
-// rename dir, update package.json ( repo, name)
+// rename dir, update package.json (repo, name)
 // update changeset script (repo)
 // update root package.json, remove postinstall script and this file too
 
@@ -27,13 +27,13 @@ async function main() {
 	const gitURL = await run_command('git remote get-url origin');
 	const githubProject = gitURL.trim().slice(gitURL.indexOf('github.com') + 11, -4);
 	const mainPackage = githubProject.substring(githubProject.indexOf('/') + 1);
-	console.log(`first install: updating template to match repo "${githubProject}"`)
+	console.log(`first install: updating template to match repo "${githubProject}"`);
 	const replaceNames = (c) => {
 		return c
 			.replace(/svitejs\/project-template/g, githubProject)
 			.replace(/packages\/project-template/g, `packages/${mainPackage}`);
 	};
-	await edit_file('.changeset/config.json',replaceNames)
+	await edit_file('.changeset/config.json', replaceNames);
 	await edit_file('packages/project-template/package.json', replaceNames);
 	await edit_file('README.md', replaceNames);
 
