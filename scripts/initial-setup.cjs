@@ -12,8 +12,9 @@ async function run_command(command) {
 		child_process.exec(command, (err, stdout) => {
 			if (err) {
 				reject(err);
+			} else {
+				resolve(stdout ? stdout.trim() : '');
 			}
-			resolve(stdout);
 		});
 	});
 }
@@ -24,18 +25,33 @@ async function edit_file(filename, replacer) {
 }
 
 async function main() {
+	const user = await run_command('git config user.name');
 	const gitURL = await run_command('git remote get-url origin');
-	const githubProject = gitURL.trim().slice(gitURL.indexOf('github.com') + 11, -4);
+	const githubProject = gitURL.slice(gitURL.indexOf('github.com') + 11, -4);
 	const mainPackage = githubProject.substring(githubProject.indexOf('/') + 1);
-	console.log(`first install: updating template to match repo "${githubProject}"`);
-	const replaceNames = (c) => {
+	const replaceValues = (c) => {
 		return c
 			.replace(/svitejs\/project-template/g, githubProject)
-			.replace(/packages\/project-template/g, `packages/${mainPackage}`);
+			.replace(/packages\/project-template/g, `packages/${mainPackage}`)
+			.replace(/project-template/g, mainPackage)
+			.replace(/~~AUTHOR~~/g,user)
+			.replace(/~~YEAR~~/g,(new Date()).getFullYear())
 	};
-	await edit_file('.changeset/config.json', replaceNames);
-	await edit_file('packages/project-template/package.json', replaceNames);
-	await edit_file('README.md', replaceNames);
+
+	console.log(`first install: updating template to match repo "${githubProject}"`);
+	await fs.unlink('README.md');
+	await fs.rename('README.tpl.md','README.md')
+	await Promise.all([
+		'.changeset/config.json',
+		'.github/ISSUE_TEMPLATE/bug_report.yml',
+		'.github/ISSUE_TEMPLATE/feature_request.yml',
+		'.github/ISSUE_TEMPLATE/config.yml',
+		'.github/workflows/release.yml',
+		'packages/project-template/package.json',
+		'packages/project-template/LICENSE',
+		'package.json',
+		'README.md'
+	].map(f => edit_file(f,replaceValues)))
 
 	await fs.rename('packages/project-template', `packages/${mainPackage}`);
 
@@ -46,12 +62,12 @@ async function main() {
 
 async function cleanup() {
 	try {
+		await fs.unlink('scripts/initial-setup.cjs');
 		await edit_file('package.json', (c) => {
 			const pkg = JSON.parse(c);
 			delete pkg.scripts.postinstall;
-			return JSON.stringify(pkg, null, 2);
+			return JSON.stringify(pkg, null, 2)+'\n';
 		});
-		await fs.unlink('scripts/initial-setup.cjs');
 	} catch (e) {
 		console.error('cleanup failed', e);
 	}
