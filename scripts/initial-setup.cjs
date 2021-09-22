@@ -34,30 +34,36 @@ async function main() {
 			.replace(/svitejs\/project-template/g, githubProject)
 			.replace(/packages\/project-template/g, `packages/${mainPackage}`)
 			.replace(/project-template/g, mainPackage)
-			.replace(/~~AUTHOR~~/g,user)
-			.replace(/~~YEAR~~/g,(new Date()).getFullYear())
+			.replace(/~~AUTHOR~~/g, user)
+			.replace(/~~YEAR~~/g, new Date().getFullYear());
 	};
 
 	console.log(`first install: updating template to match repo "${githubProject}"`);
 	await fs.unlink('README.md');
-	await fs.rename('README.tpl.md','README.md')
-	await Promise.all([
-		'.changeset/config.json',
-		'.github/ISSUE_TEMPLATE/bug_report.yml',
-		'.github/ISSUE_TEMPLATE/feature_request.yml',
-		'.github/ISSUE_TEMPLATE/config.yml',
-		'.github/workflows/release.yml',
-		'packages/playground/README.md',
-		'packages/project-template/package.json',
-		'packages/project-template/LICENSE',
-		'package.json',
-		'README.md'
-	].map(f => edit_file(f,replaceValues)))
+	await fs.rename('README.tpl.md', 'README.md');
+	await Promise.all(
+		[
+			'.changeset/config.json',
+			'.github/ISSUE_TEMPLATE/bug_report.yml',
+			'.github/ISSUE_TEMPLATE/feature_request.yml',
+			'.github/ISSUE_TEMPLATE/config.yml',
+			'.github/workflows/release.yml',
+			'packages/playground/README.md',
+			'packages/project-template/package.json',
+			'packages/project-template/LICENSE',
+			'package.json',
+			'README.md'
+		].map((f) => edit_file(f, replaceValues))
+	);
 
 	await fs.rename('packages/project-template', `packages/${mainPackage}`);
 
 	await edit_file('package.json', (c) => {
 		return c.replace('project-template-monorepo', `${mainPackage}-monorepo`);
+	});
+
+	await edit_file('.gitignore', (c) => {
+		return c.replace('pnpm-lock.yaml', 'pnpm-lock.yaml\n!/pnpm-lock.yaml');
 	});
 }
 
@@ -67,7 +73,7 @@ async function cleanup() {
 		await edit_file('package.json', (c) => {
 			const pkg = JSON.parse(c);
 			delete pkg.scripts.postinstall;
-			return JSON.stringify(pkg, null, 2)+'\n';
+			return JSON.stringify(pkg, null, 2) + '\n';
 		});
 	} catch (e) {
 		console.error('cleanup failed', e);
