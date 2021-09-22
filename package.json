@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "pnpm --dir packages/project-template dev",
     "build": "pnpm -r build",
-    "build:ci": "pnpm -r build:ci",
     "test": "pnpm -r test --workspace-concurrency=1",
-    "test:ci": "pnpm run test",
     "lint": "eslint --ignore-path .gitignore '**/*.{js,ts,svelte,html,svx,md}'",
     "lint:fix": "pnpm run lint -- --fix",
     "format": "prettier --ignore-path .gitignore '**/*.{css,scss,svelte,html,js,ts,svx,md}' --check",

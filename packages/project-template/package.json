@@ -16,9 +16,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "dev": "pnpm run build:ci -- --sourcemap --watch src",
-    "build:ci": "rimraf dist && tsup-node src/index.ts --format esm,cjs --no-splitting",
-    "build": "pnpm run build:ci -- --dts --sourcemap",
+    "dev": "tsup-node --watch src",
+    "build": "tsup-node --dts",
     "test": "esmo tests/index.ts"
   },
   "engines": {

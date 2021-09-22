@@ -80,6 +80,6 @@ jobs:
           pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
           node node_modules/esbuild/install.js
       - name: build
-        run: pnpm run build:ci
+        run: pnpm run build
       - name: run tests
-        run: pnpm test:ci
+        run: pnpm test
