@@ -17,7 +17,7 @@ This is a template repository to quickly set up new projects for releasing npm p
 - create a new GitHub repo based on this template. Use a simple name like `someorg/foo-bar`, where someorg is the same on npm and GitHub
 - clone your new repo
 - run `pnpm install` in the clone
-- On first run, a [setup-script](scripts/initial-setup.cjs) in postinstall updates template with urls and names of your new repo
+- On first run, a [setup-script](scripts/initial-setup.cjs) in preinstall updates template with urls and names of your new repo
 - commit the changes done by the setup-script
 - review project setup
 - add an NPM_TOKEN secret that allows to publish the npm package

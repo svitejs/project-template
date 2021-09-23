@@ -2,7 +2,7 @@
 // update initial package:
 // rename dir, update package.json (repo, name)
 // update changeset script (repo)
-// update root package.json, remove postinstall script and this file too
+// update root package.json, remove preinstall script and this file too
 
 const fs = require('fs/promises');
 const child_process = require('child_process');
@@ -73,7 +73,7 @@ async function cleanup() {
 		await fs.unlink('scripts/initial-setup.cjs');
 		await edit_file('package.json', (c) => {
 			const pkg = JSON.parse(c);
-			delete pkg.scripts.postinstall;
+			delete pkg.scripts.preinstall;
 			return JSON.stringify(pkg, null, 2) + '\n';
 		});
 	} catch (e) {

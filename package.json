@@ -13,7 +13,7 @@
     "fixup": "run-s lint:fix format:fix",
     "release": "pnpm run build && pnpm changeset publish",
     "prepare": "husky install",
-    "postinstall": "node scripts/initial-setup.cjs"
+    "preinstall": "node scripts/initial-setup.cjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.17.0",
