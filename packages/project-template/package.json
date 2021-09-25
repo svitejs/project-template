@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "tsup-node --watch src",
     "build": "tsup-node --dts",
-    "test": "esmo tests/index.ts"
+    "test": "esmo node_modules/uvu/bin.js tests"
   },
   "engines": {
     "node": "^12.20 || ^14.13.1 || >= 16"
