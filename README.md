@@ -1,4 +1,4 @@
-### project-template
+# project-template
 
 This is a template repository to quickly set up new projects for releasing npm packages
 
@@ -10,28 +10,28 @@ This is a template repository to quickly set up new projects for releasing npm p
 - Additional tooling like prettier, eslint, lint-staged already set up
 - Issue templates for feature requests and bug reports
 
-### usage
+## Initial setup
 
-#### initial setup
+1. Create a new GitHub repo based on this template. Use a simple name like `someorg/foo-bar`, where someorg is the same on npm and GitHub
+2. Clone your new repo
+3. Run `pnpm install` in the clone
+4. On first run, a [setup-script](scripts/initial-setup.cjs) in preinstall updates template with urls and names of your new repo
+5. Commit the changes done by the setup-script
+6. Review project setup
+7. Add an NPM_TOKEN secret in your GitHub repo settings that allows to publish the npm package
 
-- create a new GitHub repo based on this template. Use a simple name like `someorg/foo-bar`, where someorg is the same on npm and GitHub
-- clone your new repo
-- run `pnpm install` in the clone
-- On first run, a [setup-script](scripts/initial-setup.cjs) in preinstall updates template with urls and names of your new repo
-- commit the changes done by the setup-script
-- review project setup
-- add an NPM_TOKEN secret that allows to publish the npm package
+> You can also use `npx degit svitejs/project-template my-project` to setup repo locally
 
-#### develop
+## Development
 
-- use branches for development
-- add commits
-- add changeset with `pnpm changeset`
-- push branch and open a PR
-- Check CI results and merge PR into main
-- release workflow creates a PR "Version Packages (next)" to collect changes to be released
+1. Use branches for development
+2. Add commits
+3. Add changeset with `pnpx changeset`
+4. Push branch and open a PR
+5. Check CI results and merge PR into main
+6. Release workflow creates a PR "Version Packages (next)" to collect changes to be released
 
-#### release
+## Release
 
-- merge "Version Packages (next)" PR into main
-- release workflow automatically releases npm package, creates GitHub release info and tags the release
+1. Merge "Version Packages (next)" PR into main
+2. Release workflow automatically releases npm package, creates GitHub release info and tags the release
