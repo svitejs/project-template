@@ -12,6 +12,10 @@ This is a template repository to quickly set up new projects for releasing npm p
 
 ## Initial setup
 
+You can use this either as a GitHub template or with degit as explained below.
+
+### GitHub template
+
 1. Create a new GitHub repo based on this template. Use a simple name like `someorg/foo-bar`, where someorg is the same on npm and GitHub
 2. Clone your new repo
 3. Run `pnpm install` in the clone
@@ -20,7 +24,16 @@ This is a template repository to quickly set up new projects for releasing npm p
 6. Review project setup
 7. Add an NPM_TOKEN secret in your GitHub repo settings that allows to publish the npm package
 
-> You can also use `npx degit svitejs/project-template my-project` to setup repo locally
+### degit
+
+1. Create a new empty repo on GitHub
+2. Run `npx degit svitejs/project-template my-project` to copy repo locally
+3. In the local repo, run `git init` and `git remote add origin https://github.com/someorg/foo-bar.git` (Change remote git URL accordingly)
+4. Run `pnpm install`
+5. On first run, a [setup-script](scripts/initial-setup.cjs) in preinstall updates template with urls and names of your new repo
+6. Commit the changes done by the setup-script
+7. Review project setup
+8. Add an NPM_TOKEN secret in your GitHub repo settings that allows to publish the npm package
 
 ## Development
 
