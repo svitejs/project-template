@@ -46,5 +46,7 @@ You can use this either as a GitHub template or with degit as explained below.
 
 ## Release
 
+The initial release requires a manual `npm publish` locally. Subsequent releases are as below:
+
 1. Merge "Version Packages (next)" PR into main
-2. Release workflow automatically releases npm package, creates GitHub release info and tags the release
+2. Release workflow automatically publishes npm package, creates GitHub release info, and tags the release
