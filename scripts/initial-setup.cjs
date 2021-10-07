@@ -7,7 +7,7 @@
 const fs = require('fs/promises');
 const child_process = require('child_process');
 
-const ERR_SELF_INIT = "Init called on project template itself";
+const ERR_SELF_INIT = 'Init called on project template itself';
 
 async function run_command(command) {
 	return new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ async function main() {
 	const user = await run_command('git config user.name');
 	const gitURL = await run_command('git remote get-url origin');
 	const githubProject = gitURL.slice(gitURL.indexOf('github.com') + 11, -4);
-	if(githubProject === 'svitejs/project-template') {
+	if (githubProject === 'svitejs/project-template') {
 		throw ERR_SELF_INIT;
 	}
 	const mainPackage = githubProject.substring(githubProject.indexOf('/') + 1);
@@ -89,7 +89,7 @@ async function cleanup() {
 main()
 	.then(cleanup)
 	.catch((e) => {
-		if(e !== ERR_SELF_INIT) {
+		if (e !== ERR_SELF_INIT) {
 			console.error('initial setup failed', e);
 			process.exit(1);
 		}
