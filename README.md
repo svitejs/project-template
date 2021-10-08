@@ -46,7 +46,9 @@ You can use this either as a GitHub template or with degit as explained below.
 
 ## Release
 
-The initial release requires a manual `npm publish` locally. Subsequent releases are as below:
+When you're ready to release, make sure `"private": true` is removed in the main workspace's `package.json`
 
 1. Merge "Version Packages (next)" PR into main
 2. Release workflow automatically publishes npm package, creates GitHub release info, and tags the release
+
+> NOTE: The initial release can be done the same way as long as a changeset exists via `pnpx changeset`
