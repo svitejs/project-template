@@ -1,9 +1,3 @@
-// TODO
-// update initial package:
-// rename dir, update package.json (repo, name)
-// update changeset script (repo)
-// update root package.json, remove preinstall script and this file too
-
 const fs = require('fs/promises');
 const child_process = require('child_process');
 
