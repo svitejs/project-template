@@ -3,15 +3,18 @@ const child_process = require('child_process');
 
 const ERR_SELF_INIT = 'Init called on project template itself';
 
-async function run_command(command) {
+async function run_command(command, pipe = false) {
 	return new Promise((resolve, reject) => {
-		child_process.exec(command, (err, stdout) => {
+		const proc = child_process.exec(command, (err, stdout) => {
 			if (err) {
 				reject(err);
 			} else {
 				resolve(stdout ? stdout.trim() : '');
 			}
 		});
+		if (pipe) {
+			proc.stdout.pipe(process.stdout);
+		}
 	});
 }
 
@@ -75,7 +78,7 @@ async function cleanup() {
 		await fs.unlink('scripts/initial-setup.cjs');
 		await edit_file('package.json', (c) => {
 			const pkg = JSON.parse(c);
-			delete pkg.scripts.preinstall;
+			delete pkg.scripts.setup;
 			return JSON.stringify(pkg, null, 2) + '\n';
 		});
 	} catch (e) {
@@ -85,6 +88,7 @@ async function cleanup() {
 
 main()
 	.then(cleanup)
+	.then(run_command('pnpm i', true))
 	.catch((e) => {
 		if (e !== ERR_SELF_INIT) {
 			console.error('initial setup failed', e);
