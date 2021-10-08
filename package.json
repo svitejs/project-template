@@ -56,7 +56,8 @@
   },
   "pnpm": {
     "overrides": {
-      "esbuild": "^0.13.3"
+      "@svitejs/project-template": "workspace:*",
+      "esbuild": "^0.13.4"
     }
   }
 }
