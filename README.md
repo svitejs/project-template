@@ -46,9 +46,9 @@ You can use this either as a GitHub template or with degit as explained below.
 
 ## Release
 
-When you're ready to release, make sure `"private": true` is removed in the main workspace's `package.json`
+When you're ready to release, remove `"private": true` in the main workspace's `package.json` and push up the change to auto publish. If there are existing changesets, it will create a "Version Packages (next)" PR instead.
 
 1. Merge "Version Packages (next)" PR into main
 2. Release workflow automatically publishes npm package, creates GitHub release info, and tags the release
 
-> NOTE: The initial release can be done the same way as long as a changeset exists via `pnpx changeset`
+> NOTE: New workspaces should **always** have `"private": true` or it will try to publish them.
