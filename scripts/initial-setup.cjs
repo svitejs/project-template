@@ -40,6 +40,8 @@ async function main() {
 	console.log(`first install: updating template to match repo "${githubProject}"`);
 	await fs.unlink('README.md');
 	await fs.rename('README.tpl.md', 'README.md');
+	await fs.unlink('LICENSE');
+	await fs.rename('LICENSE.tpl', 'LICENSE');
 	await fs.rename('.github/workflows.tpl', '.github/workflows');
 	await Promise.all(
 		[
@@ -52,7 +54,8 @@ async function main() {
 			'packages/project-template/package.json',
 			'packages/project-template/LICENSE',
 			'package.json',
-			'README.md'
+			'README.md',
+			'LICENSE'
 		].map((f) => edit_file(f, replaceValues))
 	);
 
