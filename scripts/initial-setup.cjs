@@ -3,18 +3,15 @@ const child_process = require('child_process');
 
 const ERR_SELF_INIT = 'Init called on project template itself';
 
-async function run_command(command, pipe = false) {
+async function run_command(command) {
 	return new Promise((resolve, reject) => {
-		const proc = child_process.exec(command, (err, stdout) => {
+		child_process.exec(command, (err, stdout) => {
 			if (err) {
 				reject(err);
 			} else {
 				resolve(stdout ? stdout.trim() : '');
 			}
 		});
-		if (pipe) {
-			proc.stdout.pipe(process.stdout);
-		}
 	});
 }
 
@@ -86,9 +83,14 @@ async function cleanup() {
 	}
 }
 
+async function install_deps() {
+	console.log('installing dependencies');
+	return child_process.spawn('pnpm', ['install'], { stdio: 'inherit' });
+}
+
 main()
 	.then(cleanup)
-	.then(run_command('pnpm i', true))
+	.then(install_deps)
 	.catch((e) => {
 		if (e !== ERR_SELF_INIT) {
 			console.error('initial setup failed', e);
