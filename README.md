@@ -52,3 +52,10 @@ When you're ready to release, remove `"private": true` in the main workspace's `
 2. Release workflow automatically publishes npm package, creates GitHub release info, and tags the release
 
 > NOTE: New workspaces should **always** have `"private": true` or it will try to publish them.
+
+## Support for commonjs
+
+This template creates esm-only output by default. If you need to support commonjs, follow these steps:
+
+1. update tsup config to include 'cjs' output and enable shims if needed
+2. update package.json exports map to add `"require": "./dist/index.cjs"` next to the import mapping
