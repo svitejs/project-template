@@ -31,6 +31,6 @@
   },
   "homepage": "https://github.com/svitejs/project-template#readme",
   "devDependencies": {
-    "uvu": "^0.5.3"
+    "uvu": "^0.5.4"
   }
 }
