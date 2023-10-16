@@ -1,3 +1,7 @@
+# OUTDATED
+
+This template contains a setup that we no longer recommend using.
+
 # project-template
 
 This is a template repository to quickly set up new projects for releasing npm packages
